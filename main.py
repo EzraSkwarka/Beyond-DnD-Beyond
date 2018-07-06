@@ -26,8 +26,8 @@ class Toon():
         self.statList=["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
 
     def importRaceStatMods(self):
-        self.raceTag = raceClasses.setRace()
-        self.race = raceClasses.raceStatblocks(self.raceTag)
+        self.race = raceClasses.raceStatblocks()
+        self.raceTag = self.race.nameOfRace
         for i in range(6):
             self.statMods[i] = self.race.statMods[i]
             print(self.statMods[i])
@@ -48,8 +48,7 @@ class Toon():
 def main():
     playerChar = Toon()
 
-    raceClasses.testImport()
-    # raceClasses.setRace()
+    # raceClasses.testImport()
     playerChar.importRaceStatMods()
     playerChar.statBlock()
 

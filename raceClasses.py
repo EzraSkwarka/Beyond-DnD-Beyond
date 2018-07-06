@@ -18,21 +18,48 @@ class RaceTemplate:
         self.racialAbilities = racialAbilities
 
 
-def raceStatblocks(raceTag):
-    elf = RaceTemplate("elf",1,1,2,2,3,3,("Fey","Darkvision"))
-    if raceTag == "elf":
-        return elf
+def raceStatblocks():
+    race = None
+    raceTag = input("Which one would you like?\n")
+    if raceTag == "list races":
+        list_races()
+        race = None
+        raceStatblocks()
+    elif raceTag == "dwarf":
+        race = RaceTemplate(raceTag,0,0,2,0,0,0,("Fey","Darkvision"))
+    elif raceTag == "elf":
+        race = RaceTemplate(raceTag,0,2,0,0,0,0,("Fey","Darkvision"))
+    elif raceTag == "halfling":
+        race = RaceTemplate(raceTag,0,2,0,0,0,0,(""))
+    elif raceTag == "human":
+        race = RaceTemplate(raceTag,0,2,0,0,0,0,("Fey","Darkvision"))
+    elif raceTag== "half-orc":
+        race = RaceTemplate(raceTag,2,0,1,0,0,0,("Fey","Darkvision"))
+    elif raceTag == "dragonborn":
+        race = RaceTemplate(raceTag,2,0,0,0,0,1,("Fey","Darkvision"))
+    elif raceTag == "gnome":
+        race = RaceTemplate(raceTag,0,0,0,2,0,0,("Fey","Darkvision"))
+    elif raceTag == "half-elf":
+        race = RaceTemplate(raceTag,0,0,0,0,0,2,("Fey","Darkvision"))
+        ###CAN CHOOSE TWO OTHERS TO INCREASE
+        print("You chose a half elf so you can increase two additional stats by one, but I haven't implemented that yet. :(")
+    elif raceTag == "tiefling":
+        race = RaceTemplate(raceTag,0,0,0,1,0,2,("Fey","Darkvision"))
+    else:
+        print("I did not understand that. PLease try again. or type lsit races to see the list of races.")
+        race = None
+        raceStatblocks()
+
+    if race != None and race != "list races":
+        return race
 
 def list_races():
     print("""The current races are:
     Elf,
-    Orc,
-    Human
-    """)
+    Half-Orc,
+    Human""")
 
 def setRace():
-    list_races()
-    raceTag = input("Which one would you like?\n")
     return raceTag.lower()
 
 
