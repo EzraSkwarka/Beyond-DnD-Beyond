@@ -4,6 +4,7 @@
 ##############
 from raceTraits import traitDictionary as traitDict
 
+
 class RaceTemplate:
     def __init__(self, race_tag, str_mod, dex_mod, con_mod, int_mod, wis_mod, chr_mod, racial_abilities, subraces=False):
         self.nameOfRace = race_tag
@@ -16,6 +17,7 @@ class RaceTemplate:
         self.statMods = [self.strMod, self.dexMod, self.conMod, self.intMod, self.wisMod, self.chrMod]
         self.racialAbilities = racial_abilities
         self.hasSubrace = subraces
+
 
 class SubRaceTemplate:
     def __init__(self, race_tag, str_mod, dex_mod, con_mod, int_mod, wis_mod, chr_mod, racial_abilities):
@@ -79,23 +81,35 @@ def get_sub_race(major_race):
 
 races = {
     "debugrace": RaceTemplate("debugrace", 1, 2, 3, 4, 5, 100, traitDict[(0, 0)], True),
-    "dwarf": RaceTemplate("dwarf", 0, 0, 2, 0, 0, 0, ["Fey", "Darkvision"]),
-    "elf": RaceTemplate("elf", 0, 2, 0, 0, 0, 0, ("Fey", "Darkvision")),
-    "halfling": RaceTemplate("halfling", 0, 2, 0, 0, 0, 0, ""),
+    "dwarf": RaceTemplate("dwarf", 0, 0, 2, 0, 0, 0, [traitDict[(1, 0)]], True),
+    "elf": RaceTemplate("elf", 0, 2, 0, 0, 0, 0, ("Fey", "Darkvision"), True),
+    "halfling": RaceTemplate("halfling", 0, 2, 0, 0, 0, 0, "", True),
     "human": RaceTemplate("human", 0, 2, 0, 0, 0, 0, ("Fey", "Darkvision")),
     "half-orc": RaceTemplate("half-orc", 2, 0, 1, 0, 0, 0, ("Fey", "Darkvision")),
     "dragonborn": RaceTemplate("dragonborn", 2, 0, 0, 0, 0, 1, ("Fey", "Darkvision")),
-    "gnome": RaceTemplate("gnome", 0, 0, 0, 2, 0, 0, ("Fey", "Darkvision")),
+    "gnome": RaceTemplate("gnome", 0, 0, 0, 2, 0, 0, ("Fey", "Darkvision"), True),
     "half-elf": RaceTemplate("half-elf", 0, 0, 0, 0, 0, 2, ("Fey", "Darkvision")),    # ##CAN CHOOSE TWO OTHERS TO INCREASE
     "tiefling": RaceTemplate("tiefling", 0, 0, 0, 1, 0, 2, ("Fey", "Darkvision"))
 }
 
 subraces = {
-    "debugrace": {"subracea": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, "fey"),
-                  "subraceb": SubRaceTemplate("Debug Sub Race B", 0, 0, 0, 0, 12, 13, "fey")}
-
-
-}
+    "debugrace": {
+        "subracea": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, "fey"),
+        "subraceb": SubRaceTemplate("Debug Sub Race B", 0, 0, 0, 0, 12, 13, "fey")},
+    "dwarf": {
+        "hilldwarf": SubRaceTemplate("Hill Dwarf", 0, 0, 0, 0, 1, 0, ""),
+        "mountaindwarf": SubRaceTemplate("Mountain Dwarf", 2, 0, 0, 0, 0, 0, "")},
+    "elf": {
+        "highelf": SubRaceTemplate("High Elf", 0, 0, 0, 1, 0, 0, ""),
+        "woodelf": SubRaceTemplate("Wood Elf", 0, 0, 0, 0, 1, 0, ""),
+        "darkelf": SubRaceTemplate("Dark Elf (Drow)", 0, 0, 0, 0, 0, 1, "")},
+    "halfling": {
+        "lightfoot": SubRaceTemplate("Lightfoot", 0, 0, 0, 0, 0, 1, ""),
+        "strongheart": SubRaceTemplate("Strongheart", 0, 0, 1, 0, 0, 0, "")},
+    "gnome": {
+        "forestgnome": SubRaceTemplate("Forest Gnome", 0, 1, 0, 0, 0, 0, ""),
+        "rockgnome": SubRaceTemplate("Rock Gnome", 0, 0, 1, 0, 0, 0, "")},
+    }
 
 
 def list_races():
