@@ -19,7 +19,8 @@ class Toon:
         self.wisMod = 0
         self.chrMod = 0
         self.statMods = [self.strMod, self.dexMod, self.conMod, self.intMod, self.wisMod, self.chrMod]
-        self.raceTraits = None
+        self.subrace = None
+        self.raceTraits = []
         # ### Stat Block
         self.strength = 0
         self.dexterity = 0
@@ -52,18 +53,25 @@ class Toon:
             else:
                 self.characterName = input("I'm very sorry I misunderstood. So then, what is your character's name?")
 
-    def import_race_stat_mods(self):
+    def import_race_information(self):
         """
         Pulls the stat modifiers from the raceClasses.py file and writes them into the toon class under stat mods.
         :return: None
         """
         self.race = raceClasses.set_race()
         self.raceTag = self.race.nameOfRace
+        if self.race.hasSubrace:
+            self.subrace = raceClasses.get_sub_race(self.raceTag)
+            for i in range(6):
+                self.statMods[i] += self.subrace.statMods[i]
         for i in range(6):
-            self.statMods[i] = self.race.statMods[i]
-        self.raceTraits = self.race.racialAbilities
-        # for i, val in range(len(self.raceTraits)):
-        #     print(self.raceTraits)
+            self.statMods[i] += self.race.statMods[i]
+        self.raceTraits.append(self.race.racialAbilities)
+        # print(str(self.raceTraits))
+        if self.race.hasSubrace:
+            self.raceTraits.append(self.subrace.racialAbilities)
+            # print(str(self.raceTraits))
+
 
     def apply_race_stat_mods(self):
         """
@@ -81,22 +89,26 @@ class Toon:
         :return:
         """
         for i in range(6):  # TODO: Set input to not error out on non-int input
-            self.stats[i] = int(input("set {0} to: ".format(self.statList[i])))
-        print("""Your stats are: {0}, {1}, {2}, {3}, {4}, {5}""".format(*self.stats))
 
-    # def get_race_traits(self):
-    #     self.race = raceClasses
-    #     self.raceTraits = self.race.racialAbilities()
+            temp = input("set {0} to: ".format(self.statList[i]))
+            if temp.isdigit():
+                temp = int(temp)
+            while type(temp) != int:
+                print("That has to be a number. Try again")
+                temp = input("set {0} to: ".format(self.statList[i]))
+                if temp.isdigit():
+                    temp = int(temp)
+            self.stats[i] = temp
+        print("""Your stats are: {0}, {1}, {2}, {3}, {4}, {5}""".format(*self.stats))
 
 
 def main():
     playerChar = Toon()
     # print("at some point, this will be an introductory schpeel.")
     # playerChar.set_names()
-    playerChar.import_race_stat_mods()
+    playerChar.import_race_information()
     playerChar.set_toon_stat_block()
     playerChar.apply_race_stat_mods()
-    # playerChar.get_race_traits()
 
 
 main()
