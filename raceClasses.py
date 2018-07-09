@@ -91,8 +91,8 @@ races = {
 }
 
 subraces = {
-    "debugrace": {"subraceA": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, "fey"),
-                  "subraceB": SubRaceTemplate("Debug Sub Race B", 0, 0, 0, 0, 12, 13, "fey")}
+    "debugrace": {"subracea": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, "fey"),
+                  "subraceb": SubRaceTemplate("Debug Sub Race B", 0, 0, 0, 0, 12, 13, "fey")}
 
 
 }
