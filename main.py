@@ -66,11 +66,12 @@ class Toon:
                 self.statMods[i] += self.subrace.statMods[i]
         for i in range(6):
             self.statMods[i] += self.race.statMods[i]
-        self.raceTraits.append(self.race.racialAbilities)
-        # print(str(self.raceTraits))
+        for i in range(len(self.race.racialAbilities)):
+            self.raceTraits.append(self.race.racialAbilities[i])
         if self.race.hasSubrace:
-            self.raceTraits.append(self.subrace.racialAbilities)
-            # print(str(self.raceTraits))
+            for i in range(len(self.subrace.racialAbilities)):
+                self.raceTraits.append(self.subrace.racialAbilities[i])
+
 
 
     def apply_race_stat_mods(self):
@@ -101,6 +102,8 @@ class Toon:
             self.stats[i] = temp
         print("""Your stats are: {0}, {1}, {2}, {3}, {4}, {5}""".format(*self.stats))
 
+    def create_character_sheet(self):
+        pass
 
 def main():
     playerChar = Toon()

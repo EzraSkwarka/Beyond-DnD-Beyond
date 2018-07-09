@@ -79,37 +79,26 @@ def get_sub_race(major_race):
         return subrace
 
 
+def get_trait_list(race_id, start, stop):
+    trait_array = []
+    i = start
+    while i <= stop:
+        trait_array.append(traitDict[(race_id, i)])
+        i += 1
+    return trait_array
+
 races = {
     "debugrace": RaceTemplate("debugrace", 1, 2, 3, 4, 5, 100, traitDict[(0, 0)], True),
-    "dwarf": RaceTemplate("dwarf", 0, 0, 2, 0, 0, 0, [traitDict[(1, 0)]], True),
-    "elf": RaceTemplate("elf", 0, 2, 0, 0, 0, 0, ("Fey", "Darkvision"), True),
-    "halfling": RaceTemplate("halfling", 0, 2, 0, 0, 0, 0, "", True),
-    "human": RaceTemplate("human", 0, 2, 0, 0, 0, 0, ("Fey", "Darkvision")),
-    "half-orc": RaceTemplate("half-orc", 2, 0, 1, 0, 0, 0, ("Fey", "Darkvision")),
-    "dragonborn": RaceTemplate("dragonborn", 2, 0, 0, 0, 0, 1, ("Fey", "Darkvision")),
-    "gnome": RaceTemplate("gnome", 0, 0, 0, 2, 0, 0, ("Fey", "Darkvision"), True),
-    "half-elf": RaceTemplate("half-elf", 0, 0, 0, 0, 0, 2, ("Fey", "Darkvision")),    # ##CAN CHOOSE TWO OTHERS TO INCREASE
-    "tiefling": RaceTemplate("tiefling", 0, 0, 0, 1, 0, 2, ("Fey", "Darkvision"))
+    "dwarf": RaceTemplate("dwarf", 0, 0, 2, 0, 0, 0, get_trait_list(1, 0, 11), True),
+    "elf": RaceTemplate("elf", 0, 2, 0, 0, 0, 0, get_trait_list(2, 0, 10), True),
+    "halfling": RaceTemplate("halfling", 0, 2, 0, 0, 0, 0, get_trait_list(3, 0, 9), True),
+    "human": RaceTemplate("human", 1, 1, 1, 1, 1, 1, get_trait_list(4, 0, 5)),
+    "half-orc": RaceTemplate("half-orc", 2, 0, 1, 0, 0, 0, get_trait_list(8, 0, 9)),
+    "dragonborn": RaceTemplate("dragonborn", 2, 0, 0, 0, 0, 1, get_trait_list(5, 0, 8)),
+    "gnome": RaceTemplate("gnome", 0, 0, 0, 2, 0, 0, get_trait_list(6, 0, 8), True),
+    "half-elf": RaceTemplate("half-elf", 0, 0, 0, 0, 0, 2, get_trait_list(7, 0, 8)),    # ##CAN CHOOSE TWO OTHERS TO INCREASE
+    "tiefling": RaceTemplate("tiefling", 0, 0, 0, 1, 0, 2, get_trait_list(9, 0, 8))
 }
-
-subraces = {
-    "debugrace": {
-        "subracea": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, "fey"),
-        "subraceb": SubRaceTemplate("Debug Sub Race B", 0, 0, 0, 0, 12, 13, "fey")},
-    "dwarf": {
-        "hilldwarf": SubRaceTemplate("Hill Dwarf", 0, 0, 0, 0, 1, 0, ""),
-        "mountaindwarf": SubRaceTemplate("Mountain Dwarf", 2, 0, 0, 0, 0, 0, "")},
-    "elf": {
-        "highelf": SubRaceTemplate("High Elf", 0, 0, 0, 1, 0, 0, ""),
-        "woodelf": SubRaceTemplate("Wood Elf", 0, 0, 0, 0, 1, 0, ""),
-        "darkelf": SubRaceTemplate("Dark Elf (Drow)", 0, 0, 0, 0, 0, 1, "")},
-    "halfling": {
-        "lightfoot": SubRaceTemplate("Lightfoot", 0, 0, 0, 0, 0, 1, ""),
-        "strongheart": SubRaceTemplate("Strongheart", 0, 0, 1, 0, 0, 0, "")},
-    "gnome": {
-        "forestgnome": SubRaceTemplate("Forest Gnome", 0, 1, 0, 0, 0, 0, ""),
-        "rockgnome": SubRaceTemplate("Rock Gnome", 0, 0, 1, 0, 0, 0, "")},
-    }
 
 
 def list_races():
@@ -121,6 +110,28 @@ def list_races():
     for key in races:
         print(key)
 
+
+subraces = {
+    "debugrace": {
+        "subracea": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, "fey"),
+        "subraceb": SubRaceTemplate("Debug Sub Race B", 0, 0, 0, 0, 12, 13, "fey")},
+    "dwarf": {
+        "hilldwarf": SubRaceTemplate("Hill Dwarf", 0, 0, 0, 0, 1, 0, get_trait_list(1, 12, 13)),
+        "mountaindwarf": SubRaceTemplate("Mountain Dwarf", 2, 0, 0, 0, 0, 0, get_trait_list(1, 14, 15))},
+    "elf": {
+        "highelf": SubRaceTemplate("High Elf", 0, 0, 0, 1, 0, 0, get_trait_list(2, 11, 14)),
+        "woodelf": SubRaceTemplate("Wood Elf", 0, 0, 0, 0, 1, 0, get_trait_list(2, 15, 18)),
+        "darkelf": SubRaceTemplate("Dark Elf (Drow)", 0, 0, 0, 0, 0, 1, get_trait_list(2, 19, 23))},
+    "halfling": {
+        "lightfoot": SubRaceTemplate("Lightfoot", 0, 0, 0, 0, 0, 1, get_trait_list(3, 10, 11)),
+        "strongheart": SubRaceTemplate("Strongheart", 0, 0, 1, 0, 0, 0, get_trait_list(3, 12, 13))},
+    "gnome": {
+        "forestgnome": SubRaceTemplate("Forest Gnome", 0, 1, 0, 0, 0, 0, get_trait_list(6, 9, 11)),
+        "rockgnome": SubRaceTemplate("Rock Gnome", 0, 0, 1, 0, 0, 0, get_trait_list(6, 12, 14))},
+    }
+
+
+
 def list_subraces(subrace):
     """
     Helper function. Lists all keys in subraces dict's nested subrace passed in
@@ -131,4 +142,3 @@ def list_subraces(subrace):
     temp_dict = subraces[subrace]
     for key in temp_dict:
         print(key)
-
