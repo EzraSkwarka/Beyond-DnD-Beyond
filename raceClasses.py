@@ -88,7 +88,7 @@ def get_trait_list(race_id, start, stop):
     return trait_array
 
 races = {
-    "debugrace": RaceTemplate("debugrace", 1, 2, 3, 4, 5, 100, traitDict[(0, 0)], True),
+    "debugrace": RaceTemplate("debugrace", 1, 2, 3, 4, 5, 100, get_trait_list(0, 0, 1), True),
     "dwarf": RaceTemplate("dwarf", 0, 0, 2, 0, 0, 0, get_trait_list(1, 0, 11), True),
     "elf": RaceTemplate("elf", 0, 2, 0, 0, 0, 0, get_trait_list(2, 0, 10), True),
     "halfling": RaceTemplate("halfling", 0, 2, 0, 0, 0, 0, get_trait_list(3, 0, 9), True),
@@ -113,7 +113,7 @@ def list_races():
 
 subraces = {
     "debugrace": {
-        "subracea": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, "fey"),
+        "subracea": SubRaceTemplate("Debug Sub Race A", 0, 0, 0, 0, 12, 13, get_trait_list(1, 0, 11)),
         "subraceb": SubRaceTemplate("Debug Sub Race B", 0, 0, 0, 0, 12, 13, "fey")},
     "dwarf": {
         "hilldwarf": SubRaceTemplate("Hill Dwarf", 0, 0, 0, 0, 1, 0, get_trait_list(1, 12, 13)),

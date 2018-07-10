@@ -12,15 +12,17 @@ class Toon:
         # ### Race info
         self.raceTag = ""
         self.race = ""
-        self.strMod = 0
-        self.dexMod = 0
-        self.conMod = 0
-        self.intMod = 0
-        self.wisMod = 0
-        self.chrMod = 0
-        self.statMods = [self.strMod, self.dexMod, self.conMod, self.intMod, self.wisMod, self.chrMod]
+        self.strModRace = 0
+        self.dexModRace = 0
+        self.conModRace = 0
+        self.intModRace = 0
+        self.wisModRace = 0
+        self.chrModRace = 0
+        self.statModsRace = [self.strModRace, self.dexModRace, self.conModRace, self.intModRace, self.wisModRace, self.chrModRace]
         self.subrace = None
         self.raceTraits = []
+
+
         # ### Stat Block
         self.strength = 0
         self.dexterity = 0
@@ -30,6 +32,13 @@ class Toon:
         self.charisma = 0
         self.stats = [self.strength, self.dexterity, self.constitution, self.intelligence, self.wisdom, self.charisma]
         self.statList = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+        self.strMod = 0
+        self.dexMod = 0
+        self.conMod = 0
+        self.intMod = 0
+        self.wisMod = 0
+        self.chrMod = 0
+        self.statMods = [self.strMod, self.dexMod, self.conMod, self.intMod, self.wisMod, self.chrMod]
         # ### Class Info
 
     def set_names(self):
@@ -63,16 +72,15 @@ class Toon:
         if self.race.hasSubrace:
             self.subrace = raceClasses.get_sub_race(self.raceTag)
             for i in range(6):
-                self.statMods[i] += self.subrace.statMods[i]
+                self.statModsRace[i] += self.subrace.statMods[i]
+                # print("your racial stat modifier is {0}".format(self.subrace.statMods[i]))
         for i in range(6):
-            self.statMods[i] += self.race.statMods[i]
+            self.statModsRace[i] += self.race.statMods[i]
         for i in range(len(self.race.racialAbilities)):
             self.raceTraits.append(self.race.racialAbilities[i])
         if self.race.hasSubrace:
             for i in range(len(self.subrace.racialAbilities)):
                 self.raceTraits.append(self.subrace.racialAbilities[i])
-
-
 
     def apply_race_stat_mods(self):
         """
@@ -81,7 +89,7 @@ class Toon:
         """
         print("adding race mods")
         for i in range(6):
-            self.stats[i] += self.statMods[i]
+            self.stats[i] += self.statModsRace[i]
         print("""Your stats are: {0}, {1}, {2}, {3}, {4}, {5}""".format(*self.stats))
 
     def set_toon_stat_block(self):
@@ -89,7 +97,7 @@ class Toon:
         When called opens the console to set the stat block using input. As of now will error out if the user does not input an int. Does not apply racial mods. Still needs polish.
         :return:
         """
-        for i in range(6):  # TODO: Set input to not error out on non-int input
+        for i in range(6):
 
             temp = input("set {0} to: ".format(self.statList[i]))
             if temp.isdigit():
@@ -102,6 +110,15 @@ class Toon:
             self.stats[i] = temp
         print("""Your stats are: {0}, {1}, {2}, {3}, {4}, {5}""".format(*self.stats))
 
+    def set_stat_modifiers(self, score):
+        if score % 2 != 0:
+            score -= 1
+        modifier = int(-5 + score / 2)
+        if modifier > 10:
+            modifier = 10
+        print("the modifier is: {0}".format(str(modifier)))
+        return modifier
+
     def create_character_sheet(self):
         pass
 
@@ -112,6 +129,8 @@ def main():
     playerChar.import_race_information()
     playerChar.set_toon_stat_block()
     playerChar.apply_race_stat_mods()
+    for stat in playerChar.stats:
+        playerChar.statMods = playerChar.set_stat_modifiers(stat)
 
 
 main()
